@@ -1,0 +1,4 @@
+[package]
+name = "power-notify"
+authors = ['Parfenov I.V.']
+version = '0.0.1'
