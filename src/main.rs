@@ -1,3 +1,5 @@
+mod r#mod;
+
 fn main() {
 
     // Infinite loop
