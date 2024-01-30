@@ -1,2 +1,2 @@
 pub mod tg_bot;
-mod json_config;
+pub mod json_config;
