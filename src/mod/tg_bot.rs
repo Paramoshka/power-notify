@@ -1,4 +1,6 @@
-
+use sysinfo::{
+    Components, Disks, Networks, System,
+};
 use teloxide::Bot;
 use teloxide::prelude::{Message, Requester, ResponseResult};
 use teloxide::utils::command::BotCommands;
@@ -42,8 +44,13 @@ pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> 
 
 pub async fn send_on_start(bot: Bot) -> ResponseResult<()> {
     let chat_id = read_config().await.chat_id;
+    //let sys = System::new_all();
+    let os = System::name().unwrap();
+    let hostname = System::host_name().unwrap();
     if chat_id != "" {
-        bot.send_message(chat_id, "Your computer is turned on").await?;
+        bot.send_message(chat_id, format!("Your computer is turned on \n
+        OS: {os} \n\
+        Hostname: {hostname}") ).await?;
     }
     Ok(())
 }
