@@ -1,4 +1,5 @@
 {
   "token": "",
-  "admin_id": "" //your tg id
+  "admin_id": "" //your tg id,
+  "chat_id": ""
 }

@@ -1,3 +1,4 @@
+use std::fmt::format;
 use teloxide::Bot;
 use teloxide::prelude::{Message, Requester, ResponseResult};
 use teloxide::utils::command::BotCommands;
@@ -12,6 +13,8 @@ pub enum Command {
     Username(String),
     #[command(description = "handle a username and an age.", parse_with = "split")]
     UsernameAndAge { username: String, age: u8 },
+    #[command(description = "get chat id for send notification")]
+    ChatId,
 }
 
 pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
@@ -28,12 +31,18 @@ pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> 
                 bot.send_message(msg.chat.id, format!("Your username is @{username} and age is {age}."))
                     .await?
             }
+            Command::ChatId => bot.send_message(msg.chat.id, format!("Your chat id: {}", msg.chat.id)).await?
         };
     } else {
         bot.send_message(msg.chat.id, format!("Your id {admin_id} is not allowed")).await?;
     }
+    Ok(())
+}
 
-
-
+pub async fn send_on_start(bot: Bot) -> ResponseResult<()> {
+    let chat_id = read_config().await.chat_id;
+    if chat_id != "" {
+        bot.send_message(chat_id, "Your computer is turned on").await?;
+    }
     Ok(())
 }

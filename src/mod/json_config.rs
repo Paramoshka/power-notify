@@ -4,7 +4,8 @@ use serde::Deserialize;
 #[derive(Debug,Deserialize)]
 pub struct Config {
     pub token: String,
-    pub admin_id: String
+    pub admin_id: String,
+    pub chat_id: String
 }
 
 pub async fn read_config() -> Config {
