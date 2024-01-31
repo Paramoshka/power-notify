@@ -7,6 +7,7 @@ mod r#mod;
 
 #[tokio::main]
 async fn main() {
+    pretty_env_logger::init();
     loop {
        let check =  check_ethernet().await;
         log::info!("checking internet connection with https://api.telegram.org");
@@ -18,7 +19,7 @@ async fn main() {
         }
 
     }
-    pretty_env_logger::init();
+
     log::info!("Starting command bot...");
     let config = read_config().await;
     let bot = Bot::new(config.token);

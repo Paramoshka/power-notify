@@ -51,7 +51,7 @@ pub async fn send_on_start(bot: Bot) -> ResponseResult<()> {
 pub async fn check_ethernet() -> Result<(), Box<dyn std::error::Error>> {
     let res = reqwest::get("https://api.telegram.org/test").await?;
 
-    println!("Status: {}", res.status());
+    println!("Status: {}", res.url());
     //println!("Headers:\n{:#?}", res.headers());
     Ok(())
 }
