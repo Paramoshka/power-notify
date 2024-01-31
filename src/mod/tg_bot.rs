@@ -1,7 +1,8 @@
-use std::fmt::format;
+
 use teloxide::Bot;
 use teloxide::prelude::{Message, Requester, ResponseResult};
 use teloxide::utils::command::BotCommands;
+
 use crate::r#mod::json_config::read_config;
 
 #[derive(BotCommands, Clone)]
@@ -44,5 +45,13 @@ pub async fn send_on_start(bot: Bot) -> ResponseResult<()> {
     if chat_id != "" {
         bot.send_message(chat_id, "Your computer is turned on").await?;
     }
+    Ok(())
+}
+
+pub async fn check_ethernet() -> Result<(), Box<dyn std::error::Error>> {
+    let res = reqwest::get("https://api.telegram.org/test").await?;
+
+    println!("Status: {}", res.status());
+    //println!("Headers:\n{:#?}", res.headers());
     Ok(())
 }
